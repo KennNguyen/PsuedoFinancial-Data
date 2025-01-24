@@ -91,12 +91,12 @@ The expected outcome of this project is a fully operational platform capable of 
             Provides in-memory caching for ultra-low-latency access to the latest data.
 
 - Database Management:
-       -- PostgreSQL:
+       PostgreSQL:
             Relational database for persistent storage of financial data.
-       -- TimescaleDB:
+       TimescaleDB:
             Extension of PostgreSQL optimized for time-series data, enabling efficient querying and storage partitioning.
 
-  - Performance and Integration:
+- Performance and Integration:
         Kafka Streams:
             Processes data streams for ingestion into Redis and PostgreSQL.
         TimescaleDB Hypertables:
