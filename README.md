@@ -107,9 +107,3 @@ The expected outcome of this project is a fully operational platform capable of 
             For initial output and debugging during the simulation stage.
         PostgreSQL Database:
             Long-term storage for structured financial data.
-
-## Resources: 
-
-- [FiQA and Financial Phrasebank Dataset](https://huggingface.co/datasets/KennNguyenDev/FiQA_Financial_Phrasebank_Combined)
-
-- [General Financial News Dataset](https://huggingface.co/datasets/KennNguyenDev/General_Financial_News_Altared)
