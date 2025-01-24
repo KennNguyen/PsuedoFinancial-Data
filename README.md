@@ -18,19 +18,19 @@ A Heston process simulates stock prices and variances, incorporating mean-revert
 
 In this stage, Kafka and Redis are employed to generate, distribute, and process synthetic financial data. The aim is to enable real-time analytics and efficient data flow across various system components. 
 
-- Kafka will serve as the primary message broker for streaming financial data in real-time, as it is well-suited for distributing large volumes of sequential data across multiple consumers, ensuring fault tolerance and scalability in managing the data pipeline.
+- Kafka will be the primary message broker for streaming financial data in real-time, as it is well-suited for distributing large volumes of sequential data across multiple consumers, ensuring fault tolerance and scalability in managing the data pipeline.
 
-- Redis will act as a high-speed, in-memory database for caching and storing frequently accessed data. It compliments Kafka by providing low-latency access to recent or commonly queried data. 
+- Redis will be the high-speed, in-memory database for caching and storing frequently accessed data. It compliments Kafka by providing low-latency access to recent or commonly queried data. 
 
 ### Stage Three: PostgreSQL Database: (On-Going)
 
-In this stage, a PostgreSQL database, enhanced with TimescaleDB, is employed for persistent storage and efficient querying of the financial data. The focus is creating a scalable and performance-optimized database schema that supports historical analysis and real-time data ingestion.
+In this stage, a PostgreSQL database, enhanced with TimescaleDB, is employed for persistent storage and efficient querying of the financial data, focusing on creating a scalable and performance-optimized database schema that supports historical analysis and real-time data ingestion.
 
 - PostgreSQL serves as the core relational database, while TimescaleDB provides time-series data management capabilities, improved query performance, and support for more efficient data retention policies. 
 
 ### Objective: 
 
-This project aims to develop a robust and scalable real-time platform for simulating, processing, and analyzing financial data. It seeks to generate realistic synthetic market data using advanced stochastic models, stream and cache it efficiently using tools like Kafka and Redis for real-time applications, and provide a performance-optimized storage solution with PostgreSQL and TimescaleDB for historical analysis. By integrating these components, the platform seeks to support various financial use cases, including algorithmic trading research, market behavior analysis, and strategy development, ensuring high performance, scalability, and low latency.
+This project aims to develop a robust and scalable real-time platform for simulating, processing, and analyzing financial data. It seeks to generate realistic synthetic market data using advanced stochastic models, stream and cache it efficiently using tools like Kafka and Redis for real-time applications, and provide a performance-optimized storage solution with PostgreSQL and TimescaleDB for historical analysis.
 
 ### Methodology:
 
