@@ -69,13 +69,44 @@ The expected outcome of this project is a fully operational platform capable of 
 
 ## Built With:
 
-- PyTorch: An open-source machine learning library for Python, favored for its flexibility, ease of use, and dynamic computational graph, that facilitates building deep learning models.
+- Python:
+        Primary language for simulation and data processing.
+        Libraries such as NumPy, pandas, and SciPy will be used for mathematical modeling and data manipulation.
+- C++:
+        Used for Kafka and Redis integration, leveraging its high-performance libraries for stream processing.
+- SQL:
+        For database schema design and querying within PostgreSQL and TimescaleDB.
 
-- PyTorch Utilities: Auxiliary tools and libraries that extend PyTorch, offering additional functionalities like model optimization and simplified coding interfaces to enhance development efficiency.
+- Simulation and Modeling:
+        Custom Python Models: Implementation of stochastic models, including random walks and the Heston process, for synthetic data generation.
+        Scientific Libraries: NumPy, pandas, and SciPy for numerical computations and data handling.
 
-- Datasets by Hugging Face: A lightweight Python library providing easy access to a vast array of machine learning datasets, designed to simplify data loading and preprocessing for quicker experimentation.
+- Data Streaming:
+        Apache Kafka:
+            Manages the real-time streaming of simulated financial data.
+            Ensures scalability and fault-tolerant distribution across consumers.
 
-- Transformers by Hugging Face: A comprehensive library that provides pre-trained models for natural language processing tasks, enabling easy utilization and fine-tuning of state-of-the-art NLP models with minimal effort.
+- Caching:
+        Redis:
+            Provides in-memory caching for ultra-low-latency access to the latest data.
+
+- Database Management:
+       -- PostgreSQL:
+            Relational database for persistent storage of financial data.
+       -- TimescaleDB:
+            Extension of PostgreSQL optimized for time-series data, enabling efficient querying and storage partitioning.
+
+  - Performance and Integration:
+        Kafka Streams:
+            Processes data streams for ingestion into Redis and PostgreSQL.
+        TimescaleDB Hypertables:
+            Automatically partitions time-series data for improved performance.
+
+- Data Storage:
+        CSV Files:
+            For initial output and debugging during the simulation stage.
+        PostgreSQL Database:
+            Long-term storage for structured financial data.
 
 ## Resources: 
 
