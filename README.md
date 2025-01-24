@@ -65,13 +65,12 @@ This project aims to develop a robust and scalable real-time platform for simula
 
 ### Expected Outcomes: 
 
-The expected outcome of this project is a fully operational platform capable of generating, processing, and storing large volumes of realistic financial data in real-time. The platform will simulate market behaviors using stochastic models, efficiently distribute the data through Kafka for real-time applications, and provide ultra-low-latency access to live data via Redis. Additionally, it will include a scalable PostgreSQL database, enhanced with TimescaleDB, to store historical data for long-term analysis and research. This integrated system will support various financial applications, such as algorithmic trading strategy development, market behavior analysis, and data-driven decision-making, ensuring high performance, reliability, and scalability for real-time and historical use cases.
+The expected outcome of this project is to have a fully operational platform capable of generating, processing, and storing large volumes of realistic financial data in real time. The platform will simulate market behaviors using stochastic models, efficiently distribute the data through Kafka for real-time applications, and provide ultra-low-latency access to live data via Redis. Moreover, it will include a scalable PostgreSQL database, enhanced with TimescaleDB, to store historical data for long-term analysis and research. This integrated system will support various financial applications, such as algorithmic trading strategy development, market behavior analysis, and data-driven decision-making, ensuring high performance, reliability, and scalability for real-time and historical use cases.
 
 ## Built With:
 
 - Python:
         Primary language for simulation and data processing.
-        Libraries such as NumPy, pandas, and SciPy will be used for mathematical modeling and data manipulation.
 - C++:
         Used for Kafka and Redis integration, leveraging its high-performance libraries for stream processing.
 - SQL:
