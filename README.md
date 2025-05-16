@@ -1,4 +1,4 @@
-# PsuedoFinancial-Data-Feed
+# PsuedoFinancial-Data
 
 ## Overview: 
 
