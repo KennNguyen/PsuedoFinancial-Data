@@ -22,4 +22,4 @@ jobs:
 
       - name: Sync website to S3
         run: |
-          aws s3 sync ./app/web/static s3://financial-simulator-frontend --delete --acl public-read
+          aws s3 sync ./app/web/static s3://financial-simulator-frontend --delete
