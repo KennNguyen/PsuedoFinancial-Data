@@ -1,108 +1,113 @@
-# PsuedoFinancial-Data
+# PseudoFinancial-Data
 
-## Overview: 
+## Overview
 
-This project aims to design and implement a comprehensive real-time platform for generating, processing, and analyzing financial data. The platform supports various financial applications, including algorithmic trading research, market analysis, and data-driven strategy development by leveraging advanced simulation techniques, robust data streaming tools, and performance-optimized storage solutions.
+**PseudoFinancial-Data** is a real-time simulation platform for generating, distributing, and analyzing synthetic financial market data using modern systems tools and realistic stochastic models. It is designed for quantitative finance research, strategy prototyping, market behavior analysis, and systems engineering training.
 
-### Stage One: Baseline Factor and Stock Price Simulation: (Complete)
+Built with performance in mind, the system integrates high-speed C++ simulations (factor and Heston models), FastAPI endpoints, real-time streaming via Kafka, in-memory caching via Redis, and scalable storage via PostgreSQL + TimescaleDB. A responsive frontend powered by S3 + CloudFront visualizes the output for inspection and educational purposes.
 
-In the initial stage, the system employs untrained stochastic and financial models to simulate synthetic stock price movements and factor returns. This stage aims to establish a foundational dataset for exploring financial phenomena, relying solely on basic statistical and financial assumptions without domain-specific optimization.
+---
 
-- Factor Return Simulation (factor_model.py):
-This code simulates correlated factor returns using a random-walk approach. It takes inputs like factor volatilities, correlation, and a random seed to ensure reproducibility. The factors represent underlying economic drivers, and their increments and cumulative levels are calculated using a Cholesky decomposition for correlated random draws.
+## Architecture Highlights
 
-- Heston Model for Stock Prices (heston_model.py):
-A Heston process simulates stock prices and variances, incorporating mean-reverting variance dynamics and correlations between price and volatility increments. Factor-based and idiosyncratic shocks are included in the price updates, with Euler discretization applied to ensure stepwise simulation accuracy.
+| Layer                  | Stack                                                                 |
+|------------------------|-----------------------------------------------------------------------|
+| **Simulation Engine**  | C++ (custom factor and Heston models)                                 |
+| **Backend API**        | FastAPI (Python)                                                      |
+| **Real-Time Streaming**| Kafka                                                                 |
+| **Low-Latency Cache**  | Redis                                                                 |
+| **Persistent Storage** | PostgreSQL + TimescaleDB                                              |
+| **Visualization**      | Chart.js, MathJax, HTML/CSS hosted via S3 + CloudFront                |
+| **CI/CD Deployment**   | GitHub Actions → S3 (via `aws s3 sync`)                               |
 
-### Stage Two: Data Distribution and Real-Time Processing (Ongoing)
+---
 
-In this stage, Kafka and Redis are employed to generate, distribute, and process synthetic financial data. The aim is to enable real-time analytics and efficient data flow across various system components. 
+## ✅ Stage One: C++ Simulation Core (Completed)
 
-- Kafka will be the primary message broker for streaming financial data in real-time, as it is well-suited for distributing large volumes of sequential data across multiple consumers, ensuring fault tolerance and scalability in managing the data pipeline.
+- **Factor Model (`factor_model.cpp`)**:  
+  Simulates asset returns using a Gaussian single-factor model with asset-specific beta exposures and idiosyncratic shocks. Factor increments follow a random walk distribution.
 
-- Redis will be the high-speed, in-memory database for caching and storing frequently accessed data. It compliments Kafka by providing low-latency access to recent or commonly queried data. 
+- **Heston Model (`heston_model.cpp`)**:  
+  Simulates asset prices using the Heston stochastic volatility model with correlation to the factor model's systemic shocks. Euler-Maruyama discretization is used, with variance clamping to ensure numerical stability.
 
-### Stage Three: PostgreSQL Database: (On-Going)
+---
 
-In this stage, a PostgreSQL database, enhanced with TimescaleDB, is employed for persistent storage and efficient querying of the financial data, focusing on creating a scalable and performance-optimized database schema that supports historical analysis and real-time data ingestion.
+## 🚀 Stage Two: Data Distribution + Real-Time Processing (Ongoing)
 
-- PostgreSQL serves as the core relational database, while TimescaleDB provides time-series data management capabilities, improved query performance, and support for more efficient data retention policies. 
+- **Kafka**:  
+  Acts as the primary event stream pipeline, distributing synthetic tick-level data across consumers. Designed for extensible multi-subscriber setups.
 
-### Objective: 
+- **Redis**:  
+  Caches the latest market data in memory for low-latency reads. Allows real-time web dashboards and backtesters to query the most recent data instantly.
 
-This project aims to develop a robust and scalable real-time platform for simulating, processing, and analyzing financial data. It seeks to generate realistic synthetic market data using advanced stochastic models, stream and cache it efficiently using tools like Kafka and Redis for real-time applications, and provide a performance-optimized storage solution with PostgreSQL and TimescaleDB for historical analysis.
+---
 
-### Methodology:
+## 🧠 Stage Three: Historical Storage (Ongoing)
 
-- Data Simulation:
+- **PostgreSQL** (with **TimescaleDB**):  
+  Stores long-term historical market simulations. Schema supports efficient querying via hypertables and time-based partitioning. Indexing strategies are under evaluation for large-scale multi-asset data retention.
 
-    Employ stochastic models, including random walks and the Heston process, to generate synthetic financial data.
-    Simulate correlated factor returns and stock price dynamics, incorporating variance modeling and factor-based shocks.
-    Validate the generated data against expected financial behaviors to establish a reliable baseline.
+---
 
-- Real-Time Streaming and Caching:
+## 🔬 Research-Oriented Modeling Approach
 
-    Integrate Kafka as the primary message broker for streaming synthetic data, ensuring scalability and fault tolerance.
-    Use Redis as an in-memory database to cache the most recent financial data for ultra-low-latency access.
-    Design a robust data flow pipeline, with Kafka producing streams of tick data and Redis serving as a fast-access layer for downstream applications.
+- **Data Generation**:
+  - Simulate price and volatility using Heston dynamics with both systemic and idiosyncratic risk sources
+  - Generate correlated factor returns for portfolio-wide behavior modeling
+  - Use numerically stable and reproducible simulation methods in C++
 
-- Database Design and Optimization:
+- **Streaming + Caching**:
+  - Publish tick-level price data using Kafka producers
+  - Cache “hot” symbols in Redis to simulate real-world data prioritization
 
-    Develop a relational database schema using PostgreSQL optimized for storing time-series financial data.
-    Enhance performance by integrating TimescaleDB for time-based partitioning and efficient historical queries.
-    Implement indexing and hyper tables to scale storage and querying capabilities as the data grows.
+- **Storage Design**:
+  - Store cold data in TimescaleDB and CSV
+  - Query via hypertables for efficient time-range slicing
 
-- Integration and Testing:
+- **Deployment**:
+  - Static frontend hosted via **AWS S3 + CloudFront**
+  - GitHub Actions auto-sync public files to S3 while excluding sensitive files like `.yml`
+  - Bucket is secured with **OAC (Origin Access Control)** instead of public access
 
-    Connect the simulation engine, Kafka, Redis, and the database into a unified pipeline.
-    Test the system under various workloads to evaluate performance, scalability, and latency.
-    Validate the correctness of data at each stage, ensuring accuracy and consistency from simulation to storage.
+---
 
-- Performance Evaluation:
+## 🛠️ Technologies Used
 
-    Benchmark the platform's ability to handle large-scale data generation, real-time processing, and historical analysis.
-    Based on testing results, optimize each component (e.g., Kafka throughput, Redis latency, TimescaleDB query performance).
+- **Languages**:
+  - `C++` — High-performance simulation engine
+  - `Python` — FastAPI backend and control logic
+  - `SQL` — Time-series schema + queries (TimescaleDB)
 
-### Expected Outcomes: 
+- **Simulation & Scientific Libraries**:
+  - `Eigen` — Matrix computation in C++
+  - `NumPy`, `pandas`, `SciPy` — Python-side analysis
 
-The expected outcome of this project is to have a fully operational platform capable of generating, processing, and storing large volumes of realistic financial data in real time. The platform will simulate market behaviors using stochastic models, efficiently distribute the data through Kafka for real-time applications, and provide ultra-low-latency access to live data via Redis. Moreover, it will include a scalable PostgreSQL database, enhanced with TimescaleDB, to store historical data for long-term analysis and research. This integrated system will support various financial applications, such as algorithmic trading strategy development, market behavior analysis, and data-driven decision-making, ensuring high performance, reliability, and scalability for real-time and historical use cases.
+- **Streaming & Caching**:
+  - `Apache Kafka` — Real-time pub/sub
+  - `Redis` — Ultra-low-latency cache
 
-## Built With:
+- **Storage**:
+  - `PostgreSQL + TimescaleDB` — Persistent historical storage
+  - `CSV` — Export and debugging
 
-- Python:
-        Primary language for simulation and data processing.
-- C++:
-        Used for Kafka and Redis integration, leveraging its high-performance libraries for stream processing.
-- SQL:
-        For database schema design and querying within PostgreSQL and TimescaleDB.
+- **Frontend**:
+  - `Chart.js` — Dynamic visualizations
+  - `MathJax` — Math documentation rendering
+  - `HTML/CSS` — Custom layout
+  - `AWS S3 + CloudFront` — Secure and scalable hosting
 
-- Simulation and Modeling:
-        Custom Python Models: Implementation of stochastic models, including random walks and the Heston process, for synthetic data generation.
-        Scientific Libraries: NumPy, pandas, and SciPy for numerical computations and data handling.
+- **DevOps**:
+  - `Docker` — Containerization
+  - `GitHub Actions` — CI/CD pipeline for syncing static assets to S3
 
-- Data Streaming:
-        Apache Kafka:
-            Manages the real-time streaming of simulated financial data.
-            Ensures scalability and fault-tolerant distribution across consumers.
+---
 
-- Caching:
-        Redis:
-            Provides in-memory caching for ultra-low-latency access to the latest data.
+## 📈 Future Enhancements
 
-- Database Management:
-       PostgreSQL:
-            Relational database for persistent storage of financial data.
-       TimescaleDB:
-            Extension of PostgreSQL optimized for time-series data, enabling efficient querying and storage partitioning.
+- Add jump-diffusion processes and rough volatility dynamics (e.g., Rough Heston)
+- Extend factor model to multi-factor, correlated market drivers
+- Implement REST streaming endpoints (e.g., Server-Sent Events or WebSockets)
+- Add analytics tools for tracking strategy PnL or drawdowns on simulated data
+- Embed filters (e.g., Kalman) for latent state inference
 
-- Performance and Integration:
-        Kafka Streams:
-            Processes data streams for ingestion into Redis and PostgreSQL.
-        TimescaleDB Hypertables:
-            Automatically partitions time-series data for improved performance.
-
-- Data Storage:
-        CSV Files:
-            For initial output and debugging during the simulation stage.
-        PostgreSQL Database:
-            Long-term storage for structured financial data.
+---
