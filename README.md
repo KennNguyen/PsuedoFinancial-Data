@@ -35,7 +35,7 @@ Built with performance in mind, the system integrates high-speed C++ simulations
 ## 🚀 Stage Two: Data Distribution + Real-Time Processing (Ongoing)
 
 - **Kafka**:  
-  Acts as the primary event stream pipeline, distributing synthetic tick-level data across consumers. Designed for extensible multi-subscriber setups.
+  Acts as the primary event stream pipeline, distributing tick-level data across consumers.
 
 - **Redis**:  
   Caches the latest market data in memory for low-latency reads. Allows real-time web dashboards and backtesters to query the most recent data instantly.
@@ -105,7 +105,7 @@ Built with performance in mind, the system integrates high-speed C++ simulations
 ## 📈 Future Enhancements
 
 - Add jump-diffusion processes and rough volatility dynamics (e.g., Rough Heston)
-- Extend factor model to multi-factor, correlated market drivers
+- Extend the factor model to multi-factor, correlated market drivers
 - Implement REST streaming endpoints (e.g., Server-Sent Events or WebSockets)
 - Add analytics tools for tracking strategy PnL or drawdowns on simulated data
 - Embed filters (e.g., Kalman) for latent state inference
